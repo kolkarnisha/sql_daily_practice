@@ -1,0 +1,37 @@
+1. Create a Staging Table
+-- Main Table
+CREATE TABLE customers (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+
+-- Staging Table
+CREATE TABLE stg_customers (
+    id INT,
+    name VARCHAR(100),
+    email VARCHAR(100)
+);
+2. Load Raw Data into Stagingsql-- Example: loading from CSV or another source
+INSERT INTO stg_customers (id, name, email)
+VALUES 
+(1, '  amit  ', 'AMIT@GMAIL.COM'),
+(2, NULL, 'john@gmail.com'),
+(1, 'amit', 'amit@gmail.com'); -- duplicate3. Clean in Stagingsql-- Clean: trim spaces, lower case, remove nulls, remove duplicates
+DELETE FROM stg_customers WHERE email IS NULL;
+
+-- Remove duplicates
+DELETE t1 FROM stg_customers t1
+INNER JOIN stg_customers t2 
+WHERE t1.id = t2.id AND t1.ctid < t2.ctid; -- Postgres
+-- For MySQL use ROW_NUMBER()
+
+-- Cleaned data
+UPDATE stg_customers SET name = TRIM(name), email = LOWER(email);4. Move Clean Data to Main TablesqlINSERT INTO customers (id, name, email)
+SELECT DISTINCT id, name, email 
+FROM stg_customers
+ON CONFLICT (id) DO NOTHING; -- Postgres
+-- MySQL: ON DUPLICATE KEY UPDATE5. Clear Staging AftersqlTRUNCATE TABLE stg_customers;
+-- or if it was a TEMP table, it auto-deletes
+CREATE TEMP TABLE stg_customers (...);
+
