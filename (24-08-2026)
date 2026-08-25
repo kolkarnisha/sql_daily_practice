@@ -1,0 +1,16 @@
+use nisha;
+show tables;
+create table customers (
+customer_id int unsigned not null auto_increment,
+email varchar(40) not null,
+fullname varchar(30) not null,
+primary key(customer_id),
+constraint uq_customers_email unique(email)
+);
+select * from customers;
+insert into customers(customer_id,email,fullname) values 
+      (1,"neeshakolkar@gmail,com","kolkarnisha"),
+      (2,"nishazareentaj@gmail.com","kolkarzareentaj"),
+      (4,"abi@gmail.com","sunny"),
+      (5,"ysjaganmohanreddy@ysrcp.gmail.com","ysjagan");
+select * from customers;
