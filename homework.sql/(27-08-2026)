@@ -1,0 +1,20 @@
+GPT‑5.6 Sol
+- Context window: 128K tokens
+- Latency: ~180 ms first token
+- Price: ~$1.2 per 1M tokens
+- Best for: Real‑time, short chats, fast responses
+- Limitation: Not ideal for deep reasoning
+
+GPT‑5.6 Terra
+- Context window: 512K tokens
+- Latency: ~420 ms first token
+- Price: ~$2.05 per 1M tokens
+- Best for: Balanced daily tasks, customer support, document analysis
+- Strength: Default model, cost‑efficient
+
+GPT‑5.6 Luna
+- Context window: 1.5M tokens
+- Latency: ~680 ms first token
+- Price: ~$4.8 per 1M tokens
+- Best for: Long documents, advanced reasoning, agent workflows
+- Strength: Flagship tier with RLHF v4
