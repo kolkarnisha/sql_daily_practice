@@ -1,0 +1,130 @@
+create database if not exists algonex;
+use algonex;
+CREATE TABLE IF NOT EXISTS alg_crew (
+    id INT,
+    name VARCHAR(20),
+    course VARCHAR(30),
+    location VARCHAR(40),
+    email VARCHAR(50),
+    mobilenum BIGINT,
+    pincode CHAR(6),
+    feedback TEXT
+);
+insert into alg_crew(id,name,course,location,email,mobilenum,pincode,feedback)
+      values(1,"kolkarnisha","datanalysis","b.kothakota","neshakolkar@gmail.com"
+                   ,8688581098,"517370","very practical training"),
+			(2,"kolkarzareentaj","pythonfullsatack","b.kothakota",
+              "zareentaj@gmail.com"
+                   ,9652937502,"517370","industrial training"),
+			(3,"sunny","medicalcoding","pulivendula","sunny@gmail.com"
+                   ,9999999999,"517325","very practical training"),
+			(4,"jaganmohanreddy","datanalysis","bangaore","jaganisha@gmail.com"
+                   ,8688581097,"516370","very practical training");
+                   
+                   
+                   
+
+select id ,name ,location from alg_crew;
+select id,name,course 
+from alg_crew
+where location="b.kothakota"
+and course="datanalysis";
+-- or pincode="527325"
+select pincode from alg_crew
+order by descending;
+select id , pincode  from alg_crew;
+select name,feedback from alg_crew
+order by des limit 2 offset 1;
+select name,feedback from alg_crew;
+select distinct location from alg_crew order by location;
+select location from alg_crew;
+select location,count(*) as id from alg_crew group by location;
+select* from alg_crew;
+show tables;
+select * from trainees;
+select id,fullname,item_notes from trainees where id=1;
+start transaction;
+select * from trainees;
+update trainees
+ set item_notes="2notebooks"
+ where fullname="nisha";
+ describe trainees;
+ show databases;
+--  use algonex;
+--  show tables;
+--  select*from alg_crew;
+use nisha;
+show tables;
+create table customers (
+customer_id int unsigned not null auto_increment,
+email varchar(40) not null,
+fullname varchar(30) not null,
+primary key(customer_id),
+constraint uq_customers_email unique(email)
+);
+select * from customers;
+insert into customers(customer_id,email,fullname) values 
+      (1,"neeshakolkar@gmail,com","kolkarnisha"),
+      (2,"nishazareentaj@gmail.com","kolkarzareentaj"),
+      (4,"abi@gmail.com","sunny"),
+      (5,"ysjaganmohanreddy@ysrcp.gmail.com","ysjagan");
+select * from customers;
+show tables;
+select * from trainees;
+show databases;
+use nisha;
+create table customers1(
+       customer_id bigint not null auto_increment,
+       fullname  varchar(50) not null,
+       email varchar(50) not null,
+       primary key(customer_id),
+       constraint uq_customers_email unique(email)
+       );
+create table orders(
+          order_id bigint not null auto_increment,
+          order_num varchar(30) not null,
+          customer_id bigint not null ,
+          total_amount decimal(12,2) not null,
+          primary key(order_id),
+          constraint uq_orders_order_number unique (order_num),
+          constraint fk_orders_customer foreign key (customer_id)
+          references customers1 (customer_id));
+	select * from customers1;
+    select * from orders;
+          
+	insert into customers1(customer_id,fullname,email) values
+         (4,"nisha","kolkar@gmail.com"),(2,"taj","njz@gmail.com");
+	select * from customers1;
+	insert into orders(order_id,order_num,customer_id,total_amount) values
+         (1,"fduink",5,8.9);
+insert into orders(order_id,order_num,customer_id,total_amount) values
+         (1,"fduink",4,8.9);
+insert into orders(order_id,order_num,customer_id,total_amount) values
+         (8,"fyu",2,9.9),(4,"hiri",1,7.9);
+-- because its unique order_id
+select * from orders;
+select * from custoers1;
+delete from customers1 where customer_id=1;
+
+
+
+          
+          
+
+
+
+
+ 
+
+
+
+
+
+                       
+                       
+                       
+
+
+
+
+
