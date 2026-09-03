@@ -82,3 +82,59 @@ select * from orders3;
 
 
 
+
+
+
+
+
+select version();
+CREATE DATABASE ecommerce_analytics;
+USE ecommerce_analytics;
+show databases;
+create table orders(
+         order_id int primary key,
+         order_date date not null,
+         customer_id int not null,
+         customer_name varchar(50) not null,
+         city varchar(50),
+         product_name varchar(100),
+         category varchar(100),
+         quantity int unsigned not null,
+         unit_price decimal(10,2) not null,
+         sales_rep varchar(100),
+         payment_method varchar(10)
+         );
+INSERT INTO orders
+           (order_id, order_date, customer_id, customer_name, city,product_name, category, quantity, unit_price,sales_rep, payment_method)
+          VALUES 
+			(101, "2026-01-01", 1, 'kolkar nisha', 'Bangalore', 'Laptop', 'Electronics', 1, 70000, 'Amit', 'UPI'),
+			(102, "2026-01-02", 1, 'nisha', 'Bangalore', 'mobile', 'accesories', 1, 30000, 'nis', 'card'),
+			(103, "2026-01-03", 1, 'kolkar nisha', 'Bangalore','headphone', 'Electronics', 1, 20000, 'Amit', 'emi'),
+            (104, "2026-01-04", 1, 'Rahulgandhi', 'Bangalore','keyboard', 'accesories', 1, 8000, 'Amit', 'cash'),
+            (105, '2026-01-05', 4, 'Sneha', 'Pune','Keyboard', 'Accessories', 3, 2000, 'Neha', 'Cash'),
+            (106, '2026-01-06', 2, 'Priya', 'Hyderabad','Tablet', 'Electronics', 1, 30000, 'Neha', 'UPI'),
+			(107, '2026-01-07', 5, 'Kiran', 'Delhi','Mobile', 'Electronics', 1, 28000, 'Ravi', 'Card'),
+            (108, '2026-01-08', 1, 'Rahul', 'Bangalore','Monitor', 'Electronics', 2, 15000, 'Amit', 'Card'),
+            (109, '2026-01-09', 3, 'Arun', 'Chennai','Mouse', 'Accessories', 2, 1500, 'Ravi', 'UPI'),
+            (110, '2026-01-10', 4, 'Sneha', 'Pune','Laptop', 'Electronics', 1, 75000, 'Neha', 'Card'),
+            (111, '2026-01-11', 6, 'Meena', 'Mumbai','Mobile', 'Electronics', 3, 22000, 'Amit', 'UPI'),
+			(112, '2026-01-12', 2, 'Priya', 'Hyderabad','Headphones', 'Accessories', 1, 4000, 'Neha', 'UPI'),
+			(113, '2026-01-13', 5, 'Kiran', 'Delhi','Laptop', 'Electronics', 1, 72000, 'Ravi', 'Card'),
+            (114, '2026-01-14', 1, 'Rahul', 'Bangalore', 'Keyboard', 'Accessories', 2, 2500, 'Amit', 'UPI'),
+            (115, '2026-01-15', 3, 'Arun', 'Chennai','Mobile', 'Electronics', 2, 27000, 'Ravi', 'Card'),
+            (116, '2026-01-16', 6, 'Meena', 'Mumbai','Tablet', 'Electronics', 1, 32000, 'Amit', 'UPI'),
+            (117, '2026-01-17', 4, 'Sneha', 'Pune','Monitor', 'Electronics', 1, 18000, 'Neha', 'Card'),
+            (118, '2026-01-18', 2, 'Priya', 'Hyderabad','Mouse', 'Accessories', 3, 1200, 'Neha', 'Cash'),
+            (119, '2026-01-19', 5, 'Kiran', 'Delhi','Headphones', 'Accessories', 2, 3500, 'Ravi', 'UPI'),
+            (120, '2026-01-20', 1, 'Rahul', 'Bangalore','Mobile', 'Electronics', 1, 26000, 'Amit', 'Card');
+ select * from orders;
+ alter table orders rename to flipkart_orders;
+  select * from flipkart_orders;
+
+			
+
+
+
+
+
+
