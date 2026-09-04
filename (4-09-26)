@@ -1,0 +1,16 @@
+	select * from flipkart_orders;
+	select customer_name,quantity,
+	   ROW_NUMBER() over(order by quantity ) as row_num from flipkart_orders;
+select customer_name,quantity,
+   ROW_NUMBER() over(partition by quantity ) as row_num from flipkart_orders 
+   where quantity>2 ;
+   -- rank()
+   select customer_name,quantity,
+   RANK() over(order by quantity desc ) as rank_num from flipkart_orders ;
+    select customer_name,quantity,
+   RANK() over(order by quantity desc ) as rank_num from flipkart_orders
+    where quantity>2;
+select customer_name,quantity,
+   DENSE_RANK() over(order by quantity ) as row_num from flipkart_orders;
+
+ 
