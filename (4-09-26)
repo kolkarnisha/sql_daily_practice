@@ -14,3 +14,21 @@ select customer_name,quantity,
    DENSE_RANK() over(order by quantity ) as row_num from flipkart_orders;
 
  
+
+
+
+-- create
+CREATE TABLE EMPLOYEE (
+  empId int,
+  name varchar(15),
+  dept varchar(10)
+);
+
+-- insert
+INSERT INTO EMPLOYEE(empId,name,dept) VALUES (1, 'Clark', 'Sales');
+INSERT INTO EMPLOYEE(empId,name,dept) VALUES (2, 'Dave', 'Accounting');
+INSERT INTO EMPLOYEE(empId,name,dept) VALUES (3, 'Ava', 'Sales');
+
+-- fetch 
+SELECT * FROM EMPLOYEE WHERE dept = 'Sales';
+GO
