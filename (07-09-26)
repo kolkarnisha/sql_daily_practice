@@ -180,3 +180,88 @@ VALUES
     'Yes',
     'Yes'
 );
+
+
+INSERT INTO pg_properties (
+    PG_name, Estb_year,
+    Address_Area, Pincode, Category, City, State, Owner_Name,
+    Parking, Gym, Lift, Contact, Rent, Sharing, Deposit,
+    Food_Specials, Facilities, Feedback, Rules, Rating,
+    SecurityCCTV, Self_Cooking
+)
+VALUES
+('Urban Nest PG', 2021, 'Marathahalli Bridge', '560037', 'Unisex', 'Bangalore', 'Karnataka',
+ 'Rajesh Kumar', 'Yes', 'Yes', 'Yes', '9000000001', 8500, 'Double', 5000,
+ 'Breakfast + Dinner', 'WiFi, Washing Machine, Hot Water, Power Backup',
+ 'Clean rooms and good food', 'No smoking, No parties', 4.4, 'Yes', 'No'),
+
+('Green View Ladies PG', 2019, 'AECS Layout', '560037', 'Ladies', 'Bangalore', 'Karnataka',
+ 'Anita Rao', 'Yes', 'Yes', 'Yes', '9000000002', 7500, 'Triple', 4000,
+ 'Breakfast + Lunch + Dinner', 'WiFi, CCTV, Washing Machine, Lift',
+ 'Good security and food', 'Visitors only until 9 PM', 4.6, 'Yes', 'Yes'),
+
+('Tech Park Executive PG', 2023, 'Munnekollal', '560037', 'Gents', 'Bangalore', 'Karnataka',
+ 'Suresh Reddy', 'Yes', 'Yes', 'Yes', '9000000003', 10000, 'Double', 6000,
+ 'Breakfast + Dinner', 'WiFi, Gym, Parking, Power Backup',
+ 'Very close to tech parks', 'No visitors after 10 PM', 4.3, 'Yes', 'No'),
+
+('Budget Stay PG', 2018, 'Marathahalli Village', '560037', 'Gents', 'Bangalore', 'Karnataka',
+ 'Mahesh B', 'Yes', 'No', 'No', '9000000004', 5500, 'Triple', 3000,
+ 'Breakfast', 'WiFi, Parking, Drinking Water',
+ 'Affordable but basic', 'No smoking', 3.8, 'Yes', 'Yes'),
+
+('Premium Coliving Marathahalli', 2024, 'Spice Garden Layout', '560037', 'Unisex', 'Bangalore', 'Karnataka',
+ 'Vikram Singh', 'Yes', 'Yes', 'Yes', '9000000005', 14000, 'Single', 10000,
+ 'Breakfast + Dinner', 'WiFi, Gym, CCTV, Washing Machine, Power Backup',
+ 'Premium rooms and excellent maintenance', 'No parties', 4.8, 'Yes', 'No'),
+
+('Comfort Homes PG', 2020, 'Tulsi Theatre Road', '560037', 'Ladies', 'Bangalore', 'Karnataka',
+ 'Lakshmi Devi', 'Yes', 'No', 'Yes', '9000000006', 6500, 'Four Sharing', 3500,
+ 'Breakfast + Lunch + Dinner', 'WiFi, CCTV, Parking, Washing Machine',
+ 'Good value for money', 'Visitors before 8 PM', 4.2, 'Yes', 'Yes'),
+
+('Smart Living PG', 2022, 'Aswath Nagar', '560037', 'Gents', 'Bangalore', 'Karnataka',
+ 'Prakash Rao', 'Yes', 'Yes', 'Yes', '9000000007', 9000, 'Double', 5000,
+ 'Breakfast + Dinner', 'WiFi, Gym, Lift, CCTV',
+ 'Good location and facilities', 'No smoking', 4.5, 'Yes', 'No'),
+
+('Affordable Nest', 2017, 'Kundalahalli Gate', '560037', 'Unisex', 'Bangalore', 'Karnataka',
+ 'Ramesh', 'No', 'No', 'Yes', '9000000008', 6000, 'Triple', 3000,
+ 'Breakfast', 'WiFi, Lift, Hot Water',
+ 'Budget friendly', 'No parties', 3.9, 'Yes', 'Yes'),
+
+-- 🔥 New Entries
+('Elite Residency PG', 2025, 'Brookefield', '560066', 'Unisex', 'Bangalore', 'Karnataka',
+ 'Deepak Sharma', 'Yes', 'Yes', 'Yes', '9000000009', 12000, 'Single', 8000,
+ 'Breakfast + Dinner', 'WiFi, Gym, Power Backup, CCTV',
+ 'Modern interiors and premium service', 'No pets allowed', 4.9, 'Yes', 'No'),
+
+('Student Hub PG', 2021, 'ITPL Road', '560067', 'Gents', 'Bangalore', 'Karnataka',
+ 'Manoj Nair', 'No', 'No', 'Yes', '9000000010', 5000, 'Triple', 2000,
+ 'Breakfast', 'WiFi, Drinking Water',
+ 'Affordable for students', 'No alcohol', 3.7, 'Yes', 'Yes'),
+
+('Serene Stay Ladies PG', 2019, 'Doddanekundi', '560037', 'Ladies', 'Bangalore', 'Karnataka',
+ 'Priya Menon', 'Yes', 'No', 'Yes', '9000000011', 7000, 'Double', 4000,
+ 'Breakfast + Dinner', 'WiFi, CCTV, Lift',
+ 'Safe and peaceful environment', 'Visitors till 7 PM', 4.4, 'Yes', 'Yes');
+
+
+INSERT INTO pg_properties (
+    PG_name, Estb_year,
+    Address_Area, Pincode, Category, City, State, Owner_Name,
+    Parking, Gym, Lift, Contact, Rent, Sharing, Deposit,
+    Food_Specials, Facilities, Feedback, Rules, Rating,
+    SecurityCCTV, Self_Cooking
+)
+VALUES
+('Sunrise PG', 2025, 'Outer Ring Road', '560038', 'Unisex', 'Bangalore', 'Karnataka',
+ 'Arjun Mehta', 'Yes', 'No', 'Yes', '9000000010', 9500, 'Double', 6000,
+ 'Breakfast + Dinner', 'WiFi, Power Backup, Washing Machine',
+ 'Spacious rooms and friendly staff', 'No loud music', 4.7, 'Yes', 'No'),
+
+('Harmony Ladies PG', 2020, 'Whitefield', '560066', 'Ladies', 'Bangalore', 'Karnataka',
+ 'Sneha Kapoor', 'No', 'Yes', 'Yes', '9000000011', 8000, 'Triple', 4000,
+ 'Breakfast + Lunch + Dinner', 'WiFi, CCTV, Lift',
+ 'Safe and comfortable stay', 'Visitors allowed till 8 PM', 4.5, 'Yes', 'Yes');
+
