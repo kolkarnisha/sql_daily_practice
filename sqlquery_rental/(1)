@@ -1,0 +1,60 @@
+-- Create Database
+CREATE DATABASE marathahalli_rental;
+GO
+
+-- Use Database
+USE marathahalli_rental;
+GO
+
+-- Create Table
+CREATE TABLE pg_properties (
+    PG_id INT PRIMARY KEY IDENTITY(1,1), -- Auto increment in SQL Server
+    PG_name VARCHAR(150) NOT NULL,
+    Estb_year INT, -- Use INT instead of YEAR
+    Address_Area VARCHAR(255) NOT NULL,
+    Pincode CHAR(6),
+    Category VARCHAR(30),
+    City VARCHAR(50) DEFAULT 'Bangalore',
+    State VARCHAR(50) DEFAULT 'Karnataka',
+    Owner_Name VARCHAR(100),
+    Parking VARCHAR(3) CHECK (Parking IN ('Yes','No')) DEFAULT 'No',
+    Gym VARCHAR(3) CHECK (Gym IN ('Yes','No')) DEFAULT 'No',
+    Lift VARCHAR(3) CHECK (Lift IN ('Yes','No')) DEFAULT 'No',
+    Contact VARCHAR(20),
+    Rent DECIMAL(10,2) NOT NULL,
+    Sharing VARCHAR(30),
+    Deposit DECIMAL(10,2),
+    Food_Specials VARCHAR(255),
+    Facilities TEXT,
+    Feedback TEXT,
+    Rules TEXT,
+    Rating DECIMAL(2,1),
+    SecurityCCTV VARCHAR(3) CHECK (SecurityCCTV IN ('Yes','No')) DEFAULT 'No',
+    Self_Cooking VARCHAR(3) CHECK (Self_Cooking IN ('Yes','No')) DEFAULT 'No',
+    CHECK (Rating >= 0 AND Rating <= 5),
+    CHECK (Rent >= 0),
+    CHECK (Deposit >= 0)
+);
+GO
+
+-- Insert Data
+INSERT INTO pg_properties (
+    PG_name, Estb_year, Address_Area, Pincode, Category, City, State, Owner_Name,
+    Parking, Gym, Lift, Contact, Rent, Sharing, Deposit, Food_Specials,
+    Facilities, Feedback, Rules, Rating, SecurityCCTV, Self_Cooking
+)
+VALUES
+('Urban Nest PG', 2021, 'Marathahalli Bridge', '560037', 'Unisex', 'Bangalore', 'Karnataka',
+ 'Rajesh Kumar', 'Yes', 'Yes', 'Yes', '9000000001', 8500, 'Double', 5000,
+ 'Breakfast + Dinner', 'WiFi, Washing Machine, Hot Water, Power Backup',
+ 'Clean rooms and good food', 'No smoking, No parties', 4.4, 'Yes', 'No'),
+
+('Green View Ladies PG', 2019, 'AECS Layout', '560037', 'Ladies', 'Bangalore', 'Karnataka',
+ 'Anita Rao', 'Yes', 'Yes', 'Yes', '9000000002', 7500, 'Triple', 4000,
+ 'Breakfast + Lunch + Dinner', 'WiFi, CCTV, Washing Machine, Lift',
+ 'Good security and food', 'Visitors only until 9 PM', 4.6, 'Yes', 'Yes'),
+
+('Tech Park Executive PG', 2023, 'Munnekollal', '560037', 'Gents', 'Bangalore', 'Karnataka',
+ 'Suresh Reddy', 'Yes', 'Yes', 'Yes', '9000000003', 10000, 'Double', 6000,
+ 'Breakfast + Dinner', 'WiFi, Gym, Parking, Power Backup',
+ 'Very close to tech parks', 'No visitors after 10 PM', 4.3, 'Yes', 'No');
