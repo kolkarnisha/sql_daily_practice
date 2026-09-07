@@ -1,0 +1,8 @@
+-- -- create database if not exists algonex;
+-- -- use algonex;
+-- select version();
+-- show databases;
+create table  customers(customer_id int,
+                            fullname varchar(30) , emai varchar(50));
+create index idx_customers_email on customers(emai);
+create veiw active_customers as select customer_id,fullname,emai from customers where status="active";
