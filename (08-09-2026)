@@ -1,0 +1,62 @@
+-- conversion functions 
+select cast(rent as unsigned ) from pg_properties;
+insert into pg_properties(PG_name, Estb_year,
+    Address_Area, Pincode, Category, City, State, Owner_Name,
+    Parking, Gym, Lift, Contact, Rent, Sharing, Deposit,
+    Food_Specials, Facilities, Feedback, Rules, Rating,
+    SecurityCCTV, Self_Cooking) value ('happypg', 2020, 'marathalli,6th cross', '560067', 'Ladies', 'Bangalore', 'Karnataka',
+ 'Sneha Kapoor', 'No', 'Yes', 'Yes', '9000000011', 8000, 'Triple', 4000,
+ 'Breakfast + Lunch + Dinner', 'WiFi, CCTV, Lift',
+ 'Safe and comfortable stay', 'Visitors allowed till 8 PM', 4.5, 'Yes', 'Yes');
+ 
+ -- for convert
+ select convert(rent,unsigned) from pg_properties;
+ 
+ alter table pg_properties add column facility_json json;
+ start transaction ;
+ update pg_properties set facility_json="wifi";
+ UPDATE pg_properties
+SET Facility_JSON =
+JSON_OBJECT(
+    'wifi', true,
+    'washing_machine', true,
+    'hot_water', true,
+    'power_backup', true
+);
+SELECT  PG_name, Facility_JSON->>'$.wifi' AS wifi
+FROM pg_properties;
+SELECT  PG_name, Facility_JSON->>'$.parking' AS parking
+FROM pg_properties;
+
+-- window functions
+-- rank pgs by rent
+select pg_name,rent ,rank() over(order by rent desc) as pg_rank from pg_properties;
+-- rank pgs by rating
+select pg_name,rating,rank() over(order by rating desc) as rating_rank ,
+dense_rank() over(order by rating desc) as denserating_rank from pg_properties;
+select pg_name,rating,dense_rank() over(order by rating desc) as rating_rank from pg_properties;
+-- rank by each category
+select category,pg_name,rent from pg_properties where category in ("gents","ladies"); -- partition
+-- category wise rank
+select category,pg_name,rent, rank() over(partition by category order by rent desc) from pg_properties;
+-- top 3 pgs by category
+select * from (select category,pg_name,rent,rating,rank() over(partition by category order by rating desc) as rent_rank
+  from pg_properties) as desire_table where rent_rank <=3  ;
+  
+  
+
+
+
+
+ 
+ 
+ 
+
+
+
+
+
+select * from pg_properties;
+explain pg_properties;
+desc pg_properties;
+
