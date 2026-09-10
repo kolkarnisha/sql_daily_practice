@@ -1,0 +1,6 @@
+-- date(09-09-2026)
+-- CTE + window function
+-- find the top 2 cheapest pg in each category
+show databases;
+use marathahalli_rental;
+show tables;
