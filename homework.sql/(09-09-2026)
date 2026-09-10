@@ -1,0 +1,145 @@
+select version();
+show databases;
+use marathahalli_rental;
+show tables;
+select * from pg_properties;
+/* *Beginner Quesztions::*
+Find all PGs under ₹7,000.  Find all ladies PGs.   Find all PGs with CCTV.   Find PGs with parking and lift.
+Find PGs with rating above 4.Find cheapest PG.Find most expensive PG.
+Find average rent. Find total PGs. Find average rating.*/
+select pg_name,rent from pg_properties where rent<=7000;
+/* Budget Stay PG	5500.00
+Comfort Homes PG	6500.00
+Affordable Nest	6000.00*/
+select pg_name,category from pg_properties where category="ladies";
+/* Green View Ladies PG	Ladies
+Comfort Homes PG	Ladies
+Harmony Ladies PG	Ladies
+annaghapg	Ladies
+happypg	Ladies*/
+-- select pg_name from pg_properties where cctv="yes";
+select pg_name from pg_properties where parking="yes" and lift="yes" ;
+/* Find PGs with rating above 4.Find cheapest PG.Find most expensive PG.
+Find average rent. Find total PGs. Find average rating.*/
+select pg_name from pg_properties where rating>4;
+-- select pg_name,rating order by rating desc from pg_properties;
+select * from (
+ select pg_name,rent,row_number() over(order by rent) as  rn 
+    from pg_properties) as t  where rn=1 ;
+select * from (
+ select pg_name,rent,row_number() over(order by rent desc) as  rn 
+    from pg_properties) as t  where rn=1 ;
+/* Find average rent. Find total PGs. Find average rating.*/
+select rent,avg(rent) over(partition by rent ) from pg_properties ;
+select rating,avg(rating) over(partition by rating) from pg_properties;
+
+/*  errors 
+	#	Time	Action	Message	Duration / Fetch
+0	1	07:41:08	with cheapestpg as (
+          select rent,Pg_name,category,row_number()
+          over (partition by category order by rent desc) 
+          )  as rn from pg_properties )
+          select * from cheapestpg  where rn<=2	Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as rn from pg_properties )
+          select * from cheapestpg  where rn<=2' at line 4	0.000 sec
+0	2	07:41:29	with cheapestpg as (
+          select rent,Pg_name,category,row_number()
+          over (partition by category order by rent desc) 
+            as rn from pg_properties )
+          select * from cheapestpg  where rn<=2	Error Code: 1046. No database selected
+ Select the default DB to be used by double-clicking its name in the SCHEMAS list in the sidebar.	0.000 sec
+3	3	07:41:52	show databases	10 row(s) returned	0.016 sec / 0.000 sec
+3	4	07:42:12	use marathahalli_rental	0 row(s) affected	0.000 sec
+3	5	07:42:29	show tables	1 row(s) returned	0.016 sec / 0.000 sec
+0	6	07:42:51	select * from pg_proprties
+ LIMIT 0, 1000	Error Code: 1146. Table 'marathahalli_rental.pg_proprties' doesn't exist	0.016 sec
+3	7	07:43:04	show tables	1 row(s) returned	0.016 sec / 0.000 sec
+3	8	07:43:19	select * from pg_properties
+ LIMIT 0, 1000	12 row(s) returned	0.016 sec / 0.000 sec
+3	9	07:43:28	with cheapestpg as (
+          select rent,Pg_name,category,row_number()
+          over (partition by category order by rent desc) 
+            as rn from pg_properties )
+          select * from cheapestpg  where rn<=2	6 row(s) returned	0.000 sec / 0.000 sec
+3	10	07:43:50	with cheapestpg as (
+          select rent,Pg_name,category,row_number()
+          over (partition by category order by rent ) 
+            as rn from pg_properties )
+          select * from cheapestpg  where rn<=2	6 row(s) returned	0.016 sec / 0.000 sec
+3	11	07:48:41	with bestrating as(
+          select pg_name,rating,category,rank() 
+          over( partition by category order by rating desc)
+          as br from pg_properties)
+          select * from bestrating where br=1	3 row(s) returned	0.000 sec / 0.000 sec
+0	12	07:54:29	with userenter as (
+         select pg_name,rating,rent,category,sharing from pg_properties 
+         where rent<=8000 and category="colive" and sharing="double" and 
+         cctv="yes" and parking="yes")
+         select * from userenter order by rating desc	Error Code: 1054. Unknown column 'cctv' in 'where clause'	0.016 sec
+3	13	07:55:16	with userenter as (
+         select pg_name,rating,rent,category,sharing from pg_properties 
+         where rent<=8000 and category="colive" and sharing="double")
+         -- cctv="yes" and parking="yes")
+         select * from userenter order by rating desc	0 row(s) returned	0.016 sec / 0.000 sec
+3	14	07:55:45	with userenter as (
+         select pg_name,rating,rent,category,sharing from pg_properties 
+         where rent<=8000 and category="ladies" and sharing="double")
+         -- cctv="yes" and parking="yes")
+         select * from userenter order by rating desc	0 row(s) returned	0.000 sec / 0.000 sec
+3	15	07:56:27	select sharing from pg_properties
+ LIMIT 0, 1000	12 row(s) returned	0.015 sec / 0.000 sec
+3	16	07:56:47	with userenter as (
+         select pg_name,rating,rent,category,sharing from pg_properties 
+         where rent<=8000 and category="ladies" and sharing="four sharing")
+         -- cctv="yes" and parking="yes")
+         select * from userenter order by rating desc	1 row(s) returned	0.000 sec / 0.000 sec
+3	17	08:01:44	select version()
+ LIMIT 0, 1000	1 row(s) returned	0.000 sec / 0.000 sec
+0	18	08:01:56	show databases()	Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1	0.000 sec
+0	19	08:02:10	show databases()	Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '()' at line 1	0.000 sec
+3	20	08:03:01	show databases	10 row(s) returned	0.000 sec / 0.000 sec
+3	21	08:03:47	use marathahalli_rental	0 row(s) affected	0.000 sec
+3	22	08:04:06	select * from pg_properties
+ LIMIT 0, 1000	12 row(s) returned	0.015 sec / 0.000 sec
+3	23	08:04:17	show tables	1 row(s) returned	0.000 sec / 0.000 sec
+3	24	08:07:35	select pg_name,rent from pg_properties where rent<=7000
+ LIMIT 0, 1000	3 row(s) returned	0.000 sec / 0.000 sec
+3	25	08:08:53	select pg_name,category from pg_properties where category="ladies"
+ LIMIT 0, 1000	5 row(s) returned	0.016 sec / 0.000 sec
+0	26	08:10:07	select pg_name from pg_properties where cctv="yes"
+ LIMIT 0, 1000	Error Code: 1054. Unknown column 'cctv' in 'where clause'	0.000 sec
+3	27	08:11:25	select pg_name from pg_properties where parking="yes" and lift="yes"
+ LIMIT 0, 1000	7 row(s) returned	0.000 sec / 0.000 sec
+3	28	08:13:01	select pg_name from pg_properties where rating>4
+ LIMIT 0, 1000	10 row(s) returned	0.000 sec / 0.000 sec
+0	29	08:13:43	select pg_name,rating order by rating desc from pg_properties	Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from pg_properties' at line 1	0.000 sec
+0	30	08:15:27	select pg_name.rent from pg_properties order by rent
+ LIMIT 0, 1000	Error Code: 1054. Unknown column 'pg_name.rent' in 'field list'	0.015 sec
+3	31	08:15:39	select pg_name,rent from pg_properties order by rent
+ LIMIT 0, 1000	12 row(s) returned	0.000 sec / 0.000 sec
+0	32	08:16:40	select pg_name,rent,row_number() from pg_properties order by rent where row_number=1	Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from pg_properties order by rent where row_number=1' at line 1	0.000 sec
+0	33	08:17:07	select pg_name,rent,row_number()  order by rent from pg_properties where row_number=1	Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by rent from pg_properties where row_number=1' at line 1	0.000 sec
+0	34	08:19:08	select pg_name,rent,row_number() over(order by rent) as rn
+     from pg_properties where rn=1	Error Code: 1054. Unknown column 'rn' in 'where clause'	0.000 sec
+0	35	08:19:45	select pg_name,rent,row_number() over(order by rent) 
+     from pg_properties where row_number=1	Error Code: 1064. You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=1' at line 2	0.000 sec
+3	36	08:19:54	select pg_name,rent,row_number() over(order by rent) 
+     from pg_properties	12 row(s) returned	0.000 sec / 0.000 sec
+0	37	08:21:04	select * from (
+  select pg_name,rent,row_number() over(order by rent) as  rn 
+     from pg_properties) where rn=1	Error Code: 1248. Every derived table must have its own alias	0.000 sec
+3	38	08:21:34	select * from (
+  select pg_name,rent,row_number() over(order by rent) as  rn 
+     from pg_properties) as t  where rn=1	1 row(s) returned	0.000 sec / 0.000 sec
+3	39	08:22:39	select * from (
+  select pg_name,rent,row_number() over(order by rent desc) as  rn 
+     from pg_properties) as t  where rn=1	1 row(s) returned	0.000 sec / 0.000 sec
+0	40	08:23:35	select rent,avg(rent) from pg_properties
+ LIMIT 0, 1000	Error Code: 1140. In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'marathahalli_rental.pg_properties.Rent'; this is incompatible with sql_mode=only_full_group_by	0.000 sec
+3	41	08:24:50	select rent,avg(rent) over(partition by rent ) from pg_properties	12 row(s) returned	0.000 sec / 0.000 sec
+3	42	08:25:41	select rating,avg(rating) over(partition by rating) from pg_properties	12 row(s) returned	0.000 sec / 0.000 sec*/
+/* learnt from errors happy moment rectified every errory by own */
+
+
+
+
+
