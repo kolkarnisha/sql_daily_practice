@@ -4,3 +4,37 @@
 show databases;
 use marathahalli_rental;
 show tables;
+select * from pg_properties;
+with cheapestpg as (
+         select rent,Pg_name,category,row_number()
+         over (partition by category order by rent ) 
+           as rn from pg_properties )
+         select * from cheapestpg  where rn<=2;
+/* 5500.00	Budget Stay PG	Gents	1
+9000.00	Smart Living PG	Gents	2
+6500.00	Comfort Homes PG	Ladies	1
+7500.00	Green View Ladies PG	Ladies	2
+6000.00	Affordable Nest	Unisex	1
+8500.00	Urban Nest PG	Unisex	2 */
+-- CTE +RNK()
+-- find all the pgs matched for the best rating within each category
+with bestrating as(
+         select pg_name,rating,category,rank() 
+         over( partition by category order by rating desc)
+         as br from pg_properties)
+         select * from bestrating where br=1;
+/*Green View Ladies PG	4.6	Ladies	1
+Premium Coliving Marathahalli	4.8	Unisex	1
+Smart Living PG	4.5	Gents	1 */
+-- suppose a user enters a following requirements in our application 
+-- budget=8000 , category=colive , sharing=double  , cctv=yes , parking=yes , and rating=4.0
+with userenter as (
+        select pg_name,rating,rent,category,sharing from pg_properties 
+        where rent<=8000 and category="colive" and sharing="double")
+        -- cctv="yes" and parking="yes")
+        select * from userenter order by rating desc;
+
+select sharing from pg_properties;
+-- suppose user enters following requirements in our application
+-- budget=8000 , category=colive , sharing=double,cctv=yes,parking=yes,rating=4.0
+
