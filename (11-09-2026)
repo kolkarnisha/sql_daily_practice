@@ -57,6 +57,125 @@ select pg_name,address_area from pg_properties where address_area like "%maratha
 
 
 
+show databases;
+use marathahalli_rental;
+show tables;
+select * from pg_properties;
+/* *LEVEL 1 — SELECT / WHERE / ORDER BY / LIMIT* -  solve without help
+1. Display all PG details
+2. Display only: PG_id, PG_name, Area, Category, Rent, Rating.
+3. Find PGs located in Marathahalli
+4. Find PGs with rent less than ₹8,000
+5. Find PGs with rent between ₹6,000 and ₹10,000
+6. Find PGs with rating greater than 4
+Find all Ladies PGs
+Find all Gents PGs with CCTV
+Find PGs where parking is available
+10. Find PGs where self-cooking is available
+Find PGs with either Gym or Lift
+Find PGs with both Gym and Lift
+Find PGs where deposit is below ₹5,000
+Find PGs established after 2020
+15. Find PGs whose name contains 'PG'.
+Find PGs whose area contains 'Marathahalli'
+Find PGs whose rent is not ₹8,000
+Find PGs where Food_Specials is NULL
+Find PGs where Food_Specials is NOT NULL
+20. Display PGs from cheapest to most expensive
+Display highest-rated PGs first
+Find the cheapest 5 PGs
+23. Find the top 5 highest-rated PGs
+24. Find the three cheapest double-sharing PGs
+25. Display distinct categories */
+select * from pg_properties;   -- 1
+select PG_id, PG_name, address_area, Category, Rent, Rating from pg_properties; -- 2
+-- 3. Find PGs located in Marathahalli
+select pg_name,address_area from pg_properties where address_area like "%marathahalli%";
+-- 4. Find PGs with rent less than ₹8,000  5. Find PGs with rent between ₹6,000 and ₹10,000  6. Find PGs with rating greater than 4
+select pg_name,rent from pg_properties where rent<8000;
+select pg_name,rent from pg_properties where rent>=6000 and rent<=10000;
+select pg_name,rent from pg_properties where rent between 6000 and 10000;
+
+select pg_name,rating from pg_properties where rating>4;
+-- Find all Ladies PGs  Find all Gents PGs with CCTV   Find PGs where parking is available   10. Find PGs where self-cooking is available
+select pg_name,category from pg_properties where category="ladies";
+select pg_name,securitycctv,category from pg_properties where category="gents";
+select pg_name,parking from pg_properties where parking="yes";
+select pg_name,self_cooking from pg_properties where self_cooking="yes";
+-- Find PGs with either Gym or Lift  Find PGs with both Gym and Lift    Find PGs where deposit is below ₹5,000 Find PGs established after 2020
+select pg_name,gym,lift from pg_properties where gym="yes"or lift="yes";
+select pg_name,gym,lift from pg_properties where gym="yes"and lift="yes";
+select pg_name,deposit from pg_properties where deposit<5000;
+select pg_name,estb_year from pg_properties where estb_year>2020;
+--  Find PGs whose name contains 'PG'. Find PGs whose area contains 'Marathahalli'  Find PGs whose rent is not ₹8,000  Find PGs where Food_Specials is NULL
+select pg_name from pg_properties where pg_name like "%pg%";
+select pg_name,address_area from pg_properties where address_area like "%marathahalli%";
+select pg_name,rent from pg_properties where rent!=8000;
+select pg_name,food_specials from pg_properties where food_specials=null;
+-- Find PGs where Food_Specials is NOT NULL 20. Display PGs from cheapest to most expensive
+-- Display highest-rated PGs first       Find the cheapest 5 PGs   23. Find the top 5 highest-rated PGs  24. Find the three cheapest double-sharing PGs
+-- 25. Display distinct categories
+select pg_name,food_specials from pg_properties ;-- where food_specials=not null;
+select pg_name,rent  from pg_properties  order by rent;
+select pg_name,rent  from pg_properties  order by rent desc;
+select pg_name,rent  from pg_properties  order by rent limit 5;
+select pg_name,rent  from pg_properties  order by rent desc limit 5;
+select pg_name,rent,sharing  from pg_properties   where sharing="double" order by rent desc limit 3;
+select category ,count(*) from pg_properties group by category;
+-- 26 find pgs whose category is either ladies or gents 
+select pg_name,category from pg_properties where category="ladies" or "gents";
+-- find pgs whose sharing type double or triple
+select pg_name,sharing from pg_properties where sharing="double" or "triple";
+-- find pgs with rent between 7k and 9k
+select pg_name,rent from pg_properties where rent between 7000 and 9000;
+-- find pg whose name start with a
+select pg_name from pg_properties where pg_name like  "a%"; -- need to ask
+-- 30. Find PGs whose area ends with Layout
+select pg_name,address_area from pg_properties where address_area like  "%layout"; -- need to ask
+-- Find PGs whose owner name contains Kumar
+ select owner_name,pg_name from pg_properties where owner_name like "%kumar%";
+-- Find PGs whose facilities mention WiFi
+select pg_name,facilities from pg_properties where facilities like "%wifi%";
+-- Find PGs whose feedback contains food
+select pg_name,feedback from pg_properties where feedback like "%food%";
+-- Find PGs where the pincode is in a given set of pincodes
+select pg_name,pincode from pg_properties where pincode in (560037,560045);
+-- 35. Find distinct sharing types
+select sharing,count(*)  from pg_properties group by sharing;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
 
 
 
