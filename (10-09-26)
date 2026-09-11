@@ -34,3 +34,17 @@ from customers AS c JOIN orders as o
     on c.customer_id=o.customer_id
 join products as p
 	on o.product_id=p.product_id;
+select c.customer_id,c.customer_name,o.order_id,o.amount 
+from customers as c
+left join orders as o 
+on c.customer_id=o.customer_id;
+select c.customer_name,o.order_id
+from customers as c
+right join orders as o 
+on c.customer_id=o.customer_id;
+-- here many developers simply rewrite 'right join' as 'left join'
+select c.customer_id,c.customer_name,o.order_id,o.amount 
+from orders as o
+left join customers as c
+on c.customer_id=o.customer_id;
+-- date(11-09-26)
