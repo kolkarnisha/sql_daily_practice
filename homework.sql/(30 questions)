@@ -1,0 +1,62 @@
+select version();
+show databases;
+use marathahalli_rental;
+show tables;
+select * from pg_properties;
+/* *Beginner Quesztions::*
+Find all PGs under ₹7,000.  Find all ladies PGs.   Find all PGs with CCTV.   Find PGs with parking and lift.
+Find PGs with rating above 4.Find cheapest PG.Find most expensive PG.
+Find average rent. Find total PGs. Find average rating.*/
+select pg_name,rent from pg_properties where rent<=7000;
+/* Budget Stay PG	5500.00
+Comfort Homes PG	6500.00
+Affordable Nest	6000.00*/
+select pg_name,category from pg_properties where category="ladies";
+/* Green View Ladies PG	Ladies
+Comfort Homes PG	Ladies
+Harmony Ladies PG	Ladies
+annaghapg	Ladies
+happypg	Ladies*/
+-- select pg_name from pg_properties where cctv="yes";
+select pg_name from pg_properties where parking="yes" and lift="yes" ;
+/* Find PGs with rating above 4.Find cheapest PG.Find most expensive PG.
+Find average rent. Find total PGs. Find average rating.*/
+select pg_name from pg_properties where rating>4;
+-- select pg_name,rating order by rating desc from pg_properties;
+select * from (
+ select pg_name,rent,row_number() over(order by rent) as  rn 
+    from pg_properties) as t  where rn=1 ;
+select * from (
+ select pg_name,rent,row_number() over(order by rent desc) as  rn 
+    from pg_properties) as t  where rn=1 ;
+/* Find average rent. Find total PGs. Find average rating.*/
+select rent,avg(rent) over(partition by rent ) from pg_properties ;
+select rating,avg(rating) over(partition by rating) from pg_properties;
+
+*Intermediate*
+-- 11. Find average rent by category
+-- 12. Find cheapest PG by category
+-- 13. Find highest-rated PG by category
+-- 14. Find number of PGs by sharing type
+-- 15. Find PGs whose rent is aboveaverage
+-- Find PGs within ₹1,000 of a user's budget
+-- Find PGs with both food and self-cooking
+-- 18. Find PGs where facilities mention Wi-Fi
+-- Find PGs established after 2020
+-- 20. Find PGs with rating higher than the category average
+-- *Window functions*
+-- 21. Rank PGs by rent
+-- Rank PGs by rating
+-- Rank PGs within category
+-- Find top 3 PGs per category
+-- 25. Find cheapest PG per category
+-- Find highest-rated PG per category
+-- Use LAG() to compare rent
+-- Use LEAD() to compare rent
+-- Use FIRST_VALUE() to find cheapest PG in a category
+-- 25. Use LAST_VALUE() to find most expensive PG
+-- 26. Divide PGs into 4 price segments using NTILE()
+-- Calculate PERCENT_RANK()
+-- 28. Calculate CUME_DIST()
+-- Calculate moving average rent
+-- 30. Build a final PG recommendation score
