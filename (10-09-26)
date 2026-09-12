@@ -47,4 +47,24 @@ select c.customer_id,c.customer_name,o.order_id,o.amount
 from orders as o
 left join customers as c
 on c.customer_id=o.customer_id;
--- date(11-09-26)
+
+
+
+
+-- date(12-09-26)
+-- pull outer join 
+-- mysql does not suport pull outer join directly , so we acheive it using left join +right join
+select c.customer_id,o.order_id,o.customer_id 
+from customers as c
+left join orders as o 
+on c.customer_id=o.customer_id
+union
+select c.customer_id,o.order_id,o.customer_id 
+from customers as c
+right join orders as o 
+on c.customer_id=o.customer_id;
+-- cross join
+-- self join
+
+
+
