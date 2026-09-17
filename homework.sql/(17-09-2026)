@@ -1,0 +1,49 @@
+# Interview Attack Round - Basic SQL
+
+## 1. What is SQL?
+SQL stands for Structured Query Language. It is a language used to talk to the database. We use it to store, get, update, and delete data.
+
+## 2. What is MySQL?
+MySQL is a software / database management system that uses SQL language. SQL is the language, MySQL is the software that understands that language. Like English is language and Google is software.
+
+## 3. SQL vs MySQL?
+- SQL = Language (like English)
+- MySQL = Software / Database that uses SQL (like Facebook uses English)
+- SQL is same for all DB, MySQL is one type of DB. Others are PostgreSQL, Oracle, SQL Server.
+
+## 4. What is a Database?
+Database is a container that stores all data in an organized way. Example: Your PG Management system database stores all PGs, tenants, rent.
+
+## 5. What is a Table?
+Table is inside a database. It stores data in rows and columns like Excel sheet.
+Example: `pgs` table, `tenants` table.
+Rows = data, Columns = fields like pg_name, rent, pincode.
+
+## 6. What is a Primary Key?
+Primary Key is a column that uniquely identifies each row. No duplicate, no null.
+Example: `pg_id` in pgs table. Each PG has different pg_id.
+
+## 7. Why do we need Constraints?
+Constraints are rules we apply on columns to keep data clean and correct.
+Example:
+- NOT NULL -> rent cannot be empty
+- UNIQUE -> email should be unique
+- PRIMARY KEY, FOREIGN KEY, CHECK
+Without constraints, wrong data will come in.
+
+## 8. VARCHAR vs CHAR?
+- CHAR(10) = Fixed size. Always takes 10 characters space. If you store 'A', it still takes 10 space. Fast.
+- VARCHAR(10) = Variable size. If you store 'A', it takes only 1 space. Saves memory.
+Use VARCHAR mostly. Use CHAR for fixed length like Gender M/F, Country code.
+
+## 9. DELETE vs TRUNCATE?
+- DELETE: Deletes some or all rows. You can use WHERE. Slow. Can be rolled back. Example: `DELETE FROM pgs WHERE pg_id=1`
+- TRUNCATE: Deletes ALL rows. No WHERE. Fast. Cannot rollback in many DBs. Resets the table. Example: `TRUNCATE TABLE pgs`
+
+## 10. DROP vs TRUNCATE?
+- TRUNCATE: Deletes only DATA inside table. Table structure remains. `TRUNCATE TABLE pgs` -> Table exists but empty.
+- DROP: Deletes full table - both DATA + STRUCTURE. Table is gone. `DROP TABLE pgs` -> Table itself deleted.
+
+## Bonus Interview Trap
+- DELETE keeps id counter, TRUNCATE resets id counter to 1 in MySQL.
+- DROP is DDL, TRUNCATE is DDL, DELETE is DML.
