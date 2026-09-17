@@ -50,3 +50,47 @@ Use VARCHAR mostly. Use CHAR for fixed length like Gender M/F, Country code.
 Bonus Interview Trap
 - DELETE keeps id counter, TRUNCATE resets id counter to 1 in MySQL.
 - DROP is DDL, TRUNCATE is DDL, DELETE is DML.
+
+*-- Intermediate*
+WHERE vs HAVING?
+WHERE filters rows BEFORE grouping. Works on normal columns.
+HAVING filters groups AFTER grouping. Works on COUNT(), SUM() etc.
+
+```sql
+SELECT * FROM pgs WHERE rent > 8000;
+SELECT city, COUNT(*) FROM pgs GROUP BY city HAVING COUNT(*) > 5;
+GROUP BY purpose?
+
+To group same values together for calculation.sqlSELECT city, COUNT(*) FROM pgs GROUP BY city;
+-- Bangalore - 60, Hyderabad - 40
+Why use aggregate functions?
+To do calculation on many rows and give single result.
+COUNT() - How many?SUM() - Total?AVG() - Average?MAX() - Highest?MIN() - 
+Lowest?sql  
+SELECT AVG(rent), MAX(rent) FROM pgs WHERE city='Bangalore';
+What is a foreign key?
+Foreign Key is a column in one table that refers to Primary Key of another table. It connects two tables.
+pgs(pg_id) -> Primary Key
+tenants(pg_id) -> Foreign Key
+15. What is Referential Integrity?
+Rule: You cannot add fake Foreign Key value. Value must exist in parent table. You cannot insert tenant with pg_id=999 if 999 PG does not exist. Database will block.
+16. What is UNIQUE?
+UNIQUE means no duplicate values in that column. UNIQUE can have 1 NULL, Primary Key cannot have NULL.
+17. Can a table have multiple UNIQUE constraints?
+YES. A table can have many UNIQUE columns.sqlCREATE TABLE tenants (
+  email VARCHAR(100) UNIQUE,
+  phone VARCHAR(10) UNIQUE
+);
+18. Can a table have multiple Primary Keys?
+NO. Only ONE primary key allowed. But ONE primary key can be made of 2 columns - Composite Key.sqlPRIMARY KEY (pg_id, bed_no)19. Why use Aliases?
+Alias = Nickname / Short name for easy reading.
+Column Alias: SELECT pg_name AS Name FROM pgsTable Alias: SELECT p.pg_name FROM pgs p20. What is the purpose of JOIN?
+JOIN is used to combine data from 2 or more tables using common column.sqlSELECT p.pg_name, t.name 
+FROM pgs p
+JOIN tenants t ON p.pg_id = t.pg_id;
+What is referential integrity?
+What is UNIQUE?
+Can a table have multiple UNIQUE constraints?
+Can a table have multiple primary keys?
+Why use aliases?
+What is the purpose of JOIN?
