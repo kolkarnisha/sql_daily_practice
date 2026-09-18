@@ -1,0 +1,83 @@
+select version();
+show databases;
+use marathahalli_rental;
+show tables;
+select * from pg_properties;
+/* *Beginner Quesztions::*/
+-- find all pgs where category =ladies
+select pg_name,category from pg_properties where category="ladies";
+--    Find all PGs with CCTV
+ select pg_name from pg_properties where cctv="yes";
+--    Find PGs with parking and lift.
+select pg_name from pg_properties where parking="yes" and lift="yes" ;
+-- Find PGs with rating above 4.
+select pg_name from pg_properties where rating>4;
+-- Find cheapest PG.
+select pg_name,rating from pg_properties  order by rating limit 1;
+-- Find most expensive PG.
+select pg_name,rating from pg_properties  order by rating desc limit 1;
+select * from (
+ select pg_name,rent,row_number() over(order by rent) as  rn 
+    from pg_properties) as t  where rn=1 ;
+select * from (
+ select pg_name,rent,row_number() over(order by rent desc) as  rn 
+    from pg_properties) as t  where rn=1 ;
+-- Find total PGs.
+select pg_name,pg_id ,count(pg_id) from pg_properties group by pg_id;
+
+select * from pg_properties;
+-- Find average rent
+select rent,avg(rent) over(partition by rent ) from pg_properties ;
+-- Find average rating
+select rating,avg(rating) over(partition by rating) from pg_properties;
+-- -- Find all PGs under ₹7,000
+select pg_name,rent from pg_properties where rent<=7000;
+
+
+-- *Intermediate*
+-- 11. Find average rent by category
+select pg_name,rent,category,avg(rent) from pg_properties group by rent,category,pg_name order by rent; -- doubt 2
+-- 12. Find cheapest PG by category
+select pg_name,rent,category from pg_properties group by category order by rent; -- doubt 1
+-- 13. Find highest-rated PG by category
+select pg_name,rent,category from pg_properties group by category order by rent desc; -- doubt 1
+-- 14. Find number of PGs by sharing type
+-- 15. Find PGs whose rent is aboveaverage
+-- Find PGs within ₹1,000 of a user's budget
+-- Find PGs with both food and self-cooking
+select pg_name from pg_properties where self_cooking="yes" and food_specials ="Breakfast + Dinner" ;
+select food_specials from pg_properties;
+-- 18. Find PGs where facilities mention Wi-Fi
+select pg_name from  pg_properties where facilities like "%wifi%";
+-- Find PGs established after 2020
+select pg_name from pg_properties where estb_year>2020;
+-- 20. Find PGs with rating higher than the category average
+select pg_name,category,avg(rating) from pg_properties group by rating,pg_name,category ;
+select pg_name,category from pg_properties group by category,pg_name; 
+-- *Window functions*
+-- 21. Rank PGs by rent
+select pg_name,rent,rank() over( order by rent desc) from pg_properties;
+-- Rank PGs by rating
+select pg_name,rating,rank() over( order by rating desc) from pg_properties;
+-- Rank PGs within category
+select pg_name,category,row_number() over(partition by category)from pg_properties;
+-- Find top 3 PGs per category
+select  pg_name,rent,category,rank() over(partition by category order by rent desc) as rn from pg_properties limit 3; -- doubt 4
+-- 25. Find cheapest PG per category
+select  pg_name,rent,category,rank() over(partition by category order by rent ) as rn from pg_properties limit 3;  -- doubt 3
+
+-- Find highest-rated PG per category
+-- Use LAG() to compare rent
+-- Use LEAD() to compare rent
+-- Use FIRST_VALUE() to find cheapest PG in a category
+-- 25. Use LAST_VALUE() to find most expensive PG
+-- 26. Divide PGs into 4 price segments using NTILE()
+-- Calculate PERCENT_RANK()
+-- 28. Calculate CUME_DIST()
+-- Calculate moving average rent
+-- 30. Build a final PG recommendation score
+
+
+
+
+
