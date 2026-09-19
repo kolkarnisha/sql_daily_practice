@@ -1,0 +1,43 @@
+-- 1 . Employees earning more than the average salary (scalar subquery)
+SELECT emp_id, name, salary
+FROM Employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM Employees
+);
+-- 2. Employees in departments located in Bengaluru (IN)
+SELECT emp_id, name, salary, dept_id
+FROM Employees
+WHERE dept_id IN (
+    SELECT dept_id
+    FROM Departments
+    WHERE location = 'Bengaluru'
+);
+-- 3. Customers who placed at least one order (EXISTS)
+SELECT cust_id, name
+FROM Customers c
+WHERE EXISTS (
+    SELECT 1
+    FROM Orders o
+    WHERE o.cust_id = c.cust_id
+);
+-- Question 4: Find customers who never placed an order(Need absence ->NOT EXISTS)
+SELECT cust_id, name
+FROM Customers c
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM Orders o
+    WHERE o.cust_id = c.cust_id
+);
+
+-- Question 5: Find employees earning more than their department's average(Average depends on employee's department-> Correlated subquery)
+SELECT emp_id, name, salary, dept_id
+FROM Employees e
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM Employees
+    WHERE dept_id = e.dept_id
+);
+
+-- Question 6: Find employees earning more than every employee in department 10( Multiple values + must exceed every value -> ALL)
+-- Question 7: Find employees earning more than at least one employee in department 10( Multiple values + at least one -> ANY)
