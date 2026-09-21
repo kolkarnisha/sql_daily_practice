@@ -1,0 +1,34 @@
+show databases;
+use algonex;
+show tables;
+/* alg_crew
+crew
+customers
+customers1
+order_dashboard
+orders
+trainees */
+use algonex1;
+show tables;
+/* algonex_users
+customers
+orders
+products */
+use ecommerce_analytics;
+show tables; -- flipkart_orders
+use marathahalli_rental;
+show tables; -- flipkart_orders
+use nisha;
+show tables; -- customers
+use nishazareentaj;
+show tables;  -- algonex_users
+use mysql;
+show tables;
+use information_schema;
+show tables;
+use performance_schema;
+show tables;
+use sys;
+show tables;
+
+
