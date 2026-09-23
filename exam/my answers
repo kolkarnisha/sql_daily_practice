@@ -1,0 +1,72 @@
+-- date(23-09-26)
+select now() ;  -- 2026-09-23 09:52:21
+-- exam
+-- b.int  . 
+-- c.decimal
+-- c.bigint
+-- b.varchar
+-- c .varbinary
+-- b.date
+-- c.datetime
+-- b.json
+-- c.primarykey
+-- b
+-- b
+-- c notnull
+-- a check table
+-- b alter
+--  c drop
+-- b truncate
+-- a insert
+-- b update
+-- a commit
+-- c foreign key ony    wrong b
+-- decimal
+-- varchar
+-- primary
+-- foreign key
+-- not null
+-- default
+-- alter
+-- drop
+-- 29 . commit
+-- 30.composite
+-- section c
+-- true
+-- false
+-- false
+-- true
+-- false
+-- false
+-- false
+-- false
+-- true
+-- true
+-- sec d
+-- 41-c
+-- 42-d 
+-- 43-f 
+-- 44-e 
+-- 45-i 
+-- 46-g 
+-- 47-a 
+-- 48-h 
+-- 49-b 
+-- 50-j 
+-- section e
+-- 51 price datatype sholuld not be varchar instead of we can use decimal,bigint ..if we use varchar the design problem will be like integer cant be multiplies with str
+-- 52. unique constraint is missing, notnull -not empty  email varchr(50) notnull unuique;
+-- 53.foreign key 
+-- 54. drop destroys table structure instead we can use delete particular record or truncate for all records
+-- 55. intger range is very low as phone numbers contain 9+ numbers better to use bigint.....varchar correct one
+-- 56.create table new_delivery_partners(c1,c2);
+-- 57.alter table table name add 
+-- 58. alter table table name rename old to new
+-- 59.rollback
+-- 60.truncate , if drop it destroys column names and entire structure of the table
+-- sec g
+-- 61. bigint with constraints of primarykey because it can be unique+notnull
+-- 62.decimal
+-- 63.varchar
+-- 64.datetime()
+-- 65.double for lattitude and longititude 
