@@ -1,0 +1,401 @@
+SECTION I — SCENARIO-BASED (These questions test whether you can apply what you know)
+
+71. Zepto Customer Table
+You are designing: customers
+
+Business requirements:
+Every customer needs an ID
+Customer name is mandatory
+Email must be unique
+Customer status should default to 'ACTIVE'
+Age cannot be negative
+Registration date should be recorded
+
+Design the table:
+CREATE TABLE customers (
+    ...
+);
+
+You must choose:
+Data types
+Primary key
+Unique constraint
+Not-null constraint
+Default
+Check constraint
+                                                            Key decisions:
+CREATE TABLE customers (                                    ID -> BIGINT PRIMARY KEY
+    customer_id BIGINT PRIMARY KEY,                         Name -> VARCHAR + NOT NULL
+    customer_name VARCHAR(100) NOT NULL,                    Email -> UNIQUE + NOT NULL
+    email VARCHAR(150) NOT NULL UNIQUE,                     Status -> DEFAULT 'ACTIVE'
+    status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',           Age -> CHECK (age >= 0)
+    age INT CHECK (age >= 0),                               Registration date -> DATETIME
+    registration_date DATETIME NOT NULL
+);
+
+72. Product Table
+Design: products
+
+Requirements:
+Product ID
+Product name
+Product price
+Stock quantity
+Category
+Product status
+Created date
+Product metadata in JSON
+
+Business rules:
+price > 0
+stock >= 0
+status has controlled values
+
+Write the CREATE TABLE
+CREATE TABLE products (
+    product_id BIGINT PRIMARY KEY,
+    product_name VARCHAR(150) NOT NULL,
+    price DECIMAL(10,2) NOT NULL CHECK (price > 0),
+    stock_quantity INT NOT NULL CHECK (stock_quantity >= 0),
+    category VARCHAR(100) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
+    created_at DATETIME NOT NULL,
+    metadata JSON
+);
+
+-- Controlled status can be enforced with:
+CHECK (status IN ('ACTIVE', 'INACTIVE', 'DISCONTINUED'))
+
+73. Orders Table
+Design: orders
+
+Requirements:
+order_id
+customer_id
+store_id
+order_date
+total_amount
+status
+
+Business rules:
+Every order must belong to a customer
+Every order must belong to a store
+Order amount cannot be negative
+Status cannot be missing
+New orders should default to 'PLACED'
+
+Write the complete table definition with appropriate keys and constraints
+CREATE TABLE orders (
+    order_id BIGINT PRIMARY KEY,
+    customer_id BIGINT NOT NULL,
+    store_id BIGINT NOT NULL,
+    order_date DATETIME NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL CHECK (total_amount >= 0),
+    status VARCHAR(30) NOT NULL DEFAULT 'PLACED',
+
+    FOREIGN KEY (customer_id)
+        REFERENCES customers(customer_id),
+
+    FOREIGN KEY (store_id)
+        REFERENCES stores(store_id)
+);
+
+customer_id -> Foreign Key
+store_id -> Foreign Key
+total_amount -> CHECK >= 0
+status -> NOT NULL + DEFAULT
+
+74. Diagnose This Schema
+A developer created:
+CREATE TABLE orders (
+    order_id INT,
+    customer_id VARCHAR(100),
+    total_amount FLOAT,
+    status TEXT,
+    order_date VARCHAR(50)
+);
+
+The system is now in production
+Identify at least five design problems
+For each problem:
+Problem
+  |
+Why it is a problem
+  |
+Better data type / constraint
+
+1. order_id INT
+Problem: No primary key
+Better: BIGINT PRIMARY KEY
+
+2. customer_id VARCHAR(100)
+Problem: Wrong/inefficient representation for numeric ID
+Better: BIGINT + Foreign Ke
+
+3. total_amount FLOAT
+Problem: Approximate numeric type for money
+Better: DECIMAL(10,2)
+
+4. status TEXT
+Problem enti: Allows arbitrary values and is excessive for short status values
+Better: VARCHAR(30) NOT NULL + CHECK
+
+5. order_date VARCHAR(50)
+Problem: Date/time stored as text
+Better: DATETIME
+
+6. Missing constraints
+Problem: No NOT NULL, FK, or business validation
+Better: Add appropriate constraints
+
+75. Final Architecture Challenge
+You are designing a small Instamart/Zepto-style system
+Your database needs:
+customers
+stores
+products
+inventory
+orders
+order_items
+You don't need to implement the entire database, Just ANSWER THIS
+
+A. Which table should have the primary key? (All six tables should have a primary key)
+customers      -> customer_id
+stores         -> store_id
+products       -> product_id
+inventory      -> (store_id, product_id)
+orders         -> order_id
+order_items    -> (order_id, product_id)
+
+B. Where would you use foreign keys?
+inventory.store_id       -> stores.store_id
+inventory.product_id     -> products.product_id
+
+orders.customer_id       -> customers.customer_id
+orders.store_id          -> stores.store_id
+
+order_items.order_id     -> orders.order_id
+order_items.product_id   -> products.product_id
+
+C. Where would you use composite keys?
+inventory: PRIMARY KEY (store_id, product_id)
+order_items: PRIMARY KEY (order_id, product_id)
+Because the combination uniquely identifies the record
+
+D. Which columns should probably be NOT NULL?
+customer_id
+customer_name
+product_id
+product_name
+price
+store_id
+order_id
+customer_id in orders
+order_date
+status
+quantity
+
+E. Where would you use UNIQUE?
+customers.email
+customers.phone
+
+F. Where would you use CHECK?
+price > 0
+stock_quantity >= 0
+quantity > 0
+total_amount >= 0
+status IN ('PLACED','PACKED','DELIVERED','CANCELLED')
+
+G. Which columns would use:
+INT / BIGINT -> IDs
+DECIMAL  ->Money/price
+VARCHAR   -> Names/categories/status
+DATE     -> Date only
+DATETIME/TIMESTAMP  -> Date + time
+JSON  -> Flexible structured metadata
+
+
+ IDs                          | INT / BIGINT         
+ Money/price                  | DECIMAL(10,2)          
+ Names/categories/status      | VARCHAR                
+ Date only                    | DATE                   
+ Date + time                  | DATETIME / TIMESTAMP 
+ Flexible structured metadata | JSON   
+
+H. Which SQL command would you use when:
+Creating the schema -> CREATE DATABASE
+Adding a column  -> ALTER TABLE ... ADD COLUMN
+Changing column definition   ->  ALTER TABLE ... MODIFY/CHANGE
+Deleting selected rows  ->  DELETE ... WHERE
+Removing all table rows ->  TRUNCATE TABLE
+Removing the table   ->   DROP TABLE
+Saving a transaction ->   COMMIT
+Undoing a transaction -> ROLLBACK                
+
+ Requirement                  Command                         
+ Create schema/database   | CREATE DATABASE               
+ Create table             | CREATE TABLE                  
+ Add column               | ALTER TABLE ... ADD COLUMN    
+ Change column definition | ALTER TABLE ... MODIFY/CHANGE 
+ Delete selected rows     | DELETE ... WHERE              
+ Remove all rows          | TRUNCATE TABLE                
+ Remove table             | DROP TABLE                    
+ Save transaction         | COMMIT                        
+ Undo transaction         | ROLLBACK                      
+
+PRIMARY KEY  -> Who is this row?
+FOREIGN KEY  -> Which other row is it related to?
+UNIQUE       -> No duplicates
+NOT NULL     -> Mandatory
+CHECK        -> Business rule
+DEFAULT      -> Automatic value
+DECIMAL      -> Exact money
+DATETIME     -> Date + time
+JSON         -> Structured flexible data
+
+76. Data Type + Constraint Trap
+You are designing a users table: user_id
+                                email
+                                phone
+                                age
+                                created_at
+Requirements:
+user_id must uniquely identify a user
+Email cannot be duplicated or NULL
+Phone is optional but, when provided, must be unique
+Age cannot be negative
+Creation time should be automatically recorded
+Task: Choose the data type and appropriate constraint for each column and explain why
+
+CREATE TABLE users (
+    user_id BIGINT PRIMARY KEY,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    phone VARCHAR(20) UNIQUE,
+    age INT CHECK (age >= 0),
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+user_id -> BIGINT PRIMARY KEY → unique identity.
+email -> VARCHAR, NOT NULL, UNIQUE → mandatory and no duplicates.
+phone -> VARCHAR, UNIQUE → phone numbers may contain +, country codes, etc.; optional because no NOT NULL.
+age -> INT + CHECK → whole number and cannot be negative.
+created_at -> DATETIME + DEFAULT → automatically records creation time
+
+77. Primary Key vs UNIQUE — Real Scenario cheyandi
+employees Table:
+employee_id -> Primary key
+email   -> Unique
+company_id  -> 
+
+Business rules:
+employee_id uniquely identifies an employee
+The same email cannot be used twice
+An employee belongs to one company
+Multiple employees can work for the same company
+
+Task:
+Which column should be the Primary Key?
+Which should have UNIQUE?
+Which should become a Foreign Key if a companies table exists?
+Why shouldn't company_id be the Primary Key?
+
+78. Diagnose the Design
+A developer creates:
+CREATE TABLE products (
+    product_id VARCHAR(100),
+    product_name TEXT,
+    price FLOAT,
+    stock VARCHAR(20),
+    status VARCHAR(100)
+);
+
+Identify at least 5 problems
+For each onegive: Problem -> Why -> Better choice
+Don't rewrite the table until you've identified the problems
+
+Problem 1 — product_id VARCHAR(100)
+Issue: If the ID is numeric, this is unnecessarily large and unsuitable for numeric identity.
+Better: product_id BIGINT PRIMARY KEY
+
+Problem 2 — product_name TEXT
+Issue: Product names are usually bounded-length strings
+
+Better: product_name VARCHAR(150) NOT NULL
+
+Problem 3 — price FLOAT
+Issue: FLOAT is approximate and is generally not preferred for exact monetary values.
+Better:  price DECIMAL(10,2)
+
+Problem 4 — stock VARCHAR(20)
+Issue: Stock is numeric, but it's stored as text
+Better: stock INT CHECK (stock >= 0)
+
+Problem 5 — status VARCHAR(100)
+Issue: Arbitrary values can be inserted and the length is unnecessarily large
+
+Better: status VARCHAR(20)
+CHECK (status IN ('ACTIVE', 'INACTIVE', 'DISCONTINUED'))
+Also, the original table has no primary key
+
+79. DELETE vs TRUNCATE vs DROP — Business Decision
+A production table contains: orders
+
+Decide what you would use in each case:
+A. Delete only order 1005
+DELETE FROM orders
+WHERE order_id = 1005;
+
+B. Remove all test records but keep the table structure
+DELETE FROM orders
+WHERE order_id = 1005;
+
+C. Completely remove the orders table because the application no longer uses it
+DELETE FROM orders
+WHERE order_id = 1005;
+
+D. Remove some orders where status = 'CANCELLED'
+DELETE FROM orders
+WHERE status = 'CANCELLED';
+
+For each, give the command and one reason why the other commands are inappropriate
+DELETE   -> selected rows
+TRUNCATE -> all rows
+DROP     -> entire table
+
+80. Final Schema Challenge
+You're designing an Instamart-style order_items table:
+order_id
+product_id
+quantity
+unit_price
+discount
+
+Requirements:
+One order can contain many products
+A product can appear in many different orders
+Quantity must be greater than 0
+Unit price cannot be negative
+Discount cannot be negative
+The same product should not appear twice within the same order
+
+Task:
+What should the Primary Key be?
+Which columns should be Foreign Keys?
+Which columns need CHECK constraints?
+Which columns should be NOT NULL?
+Write the CREATE TABLE statement
+
+CREATE TABLE order_items (
+    order_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    quantity INT NOT NULL CHECK (quantity > 0),
+    unit_price DECIMAL(10,2) NOT NULL CHECK (unit_price >= 0),
+    discount DECIMAL(10,2) NOT NULL DEFAULT 0
+        CHECK (discount >= 0),
+
+    PRIMARY KEY (order_id, product_id),
+    FOREIGN KEY (order_id)
+        REFERENCES orders(order_id),
+    FOREIGN KEY (product_id)
+        REFERENCES products(product_id)
+);
