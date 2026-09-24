@@ -1,0 +1,91 @@
+select now();
+-- 2026-09-24 10:17:20
+-- exam 
+ /* create table customers (
+         c_id int  primary key,
+         c_name varchar(40) not null,
+         c_email varchar(40) unique,
+         c_status varchar(10) default "active"  ,
+         age int signed,
+         r_date timestamp);   */
+
+
+/*create table products(
+         p_id int primary key,
+         p_name varchar(10) not null,
+         p_price decimal(10,2) signed,
+         s_qty int signed,
+         categ varchar(20) ,
+         p_status varchar(10) default "controlled values",
+         c_date timestamp,
+         product_data json); */
+
+/*
+create table orders(
+       o_id int primary key ,
+       c_id int ,
+       s_id int,
+       o_date date,
+       totl_amount decimal(10,2) signed,
+       status  varchar(10) default "placed",
+       primary key(0_id) ,constraint order_must foreign key(c_id) references customers(c_id) );
+       */
+       
+
+/* total amount should be on decimal because float takes appropriate values but at price should be exact for enterprise growth
+status can be kept on deault because if it is text sholud be entered every time
+order date can be at date or timestamp datatype as it takes exact time automatically
+*/
+/* a -- customers table as it contains c_id
+   b -- at orders table in along with reference of customers table (c_id)
+   c --  at products 
+   d -- c_name,c_id,0_id ,p_name
+   e -- at email columns ,
+   f -- at price>0 and quantity>=0
+   g -- c_id int,   price ,ampunt decimal   names,email,numbers-varchar   ordered_at -date    product_name,quantity-json
+   h -- table or database creation
+	-- when an another requirement get added
+    -- alter table table name 
+    --  when a record entered twice /unnecessary record
+    -- truncate when table records all not nedded 
+    -- when the table wants to destroy drop
+    -- when all the elements completed commit
+    -- when a unnecessary data recorded by mistake rollback
+    */
+ /*create table users(
+     u_id int primary key,
+     email varchar(10) unique not null,
+     phone varchar(40) unique,
+     age int signed,
+     creation_date timestamp default""
+     );
+       */
+
+/* employee id
+  email
+  e_id column references to company(e_id)
+  because it cannot be a column that exist in employee id and here e_id belongs to both tables
+  */
+
+/* p_id must be int and primary key because if null wont accept and duplicates removed
+price to be decmal for exact price recordance
+status can be kept in default instead of everytime writing
+*/
+/* delete because only particular unnecessary order can be deleted
+ a -- delete
+ b -- truncate
+ c -- drop
+ d -- delete
+ */
+ /* 0_id
+    c_id references to customers(c_id)
+    price>0 quantity>=0
+    name,email,p_name 
+    create table order_items(
+    o_id int primary key,
+    p_id int ,
+    quantity int signed,
+    unit_price decimal(10,2),
+    discount int);
+    */
+    
