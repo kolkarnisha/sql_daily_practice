@@ -1,0 +1,33 @@
+use zeptosystem;
+
+CREATE TABLE orders1 (
+    order_id BIGINT PRIMARY KEY,
+    customer_id BIGINT,
+    total_amount DECIMAL(10,2),
+    status VARCHAR(30)
+);
+CREATE TABLE order_audit (
+    audit_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT,
+    action_type VARCHAR(30),
+    action_time DATETIME
+);
+DELIMITER //
+
+CREATE TRIGGER afterorder_insert
+AFTER INSERT ON orders1
+FOR EACH ROW
+BEGIN
+
+    INSERT INTO order_audit (order_id, action_type,action_time)
+    VALUES (NEW.order_id,'ORDER_CREATED',CURRENT_TIMESTAMP);
+END //
+DELIMITER ;
+
+
+-- - *Do this and observe order_audit*
+
+INSERT INTO orders1 (order_id, customer_id, total_amount, status)
+VALUES (1003, 101, 599.00, 'PLACED');
+select * from orders1;
+select * from order_audit; 
