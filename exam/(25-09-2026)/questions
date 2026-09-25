@@ -1,0 +1,321 @@
+MySQL EXAM — KEYS & JOINS
+Topic Coverage
+Keys: Primary Key, Foreign Key, Candidate Key, Alternate Key, Super Key, Composite Key, Unique Key, Natural vs Surrogate Key
+Joins: INNER, LEFT, RIGHT, CROSS, SELF, multi-table JOINs, JOIN conditions, unmatched records, practical scenarios
+
+Exam rule: Don't memorize JOIN syntax. For every JOIN question, first identify what data you need, from which tables, and what should happen to unmatched rows
+
+SECTION A — MCQs
+1. Which key uniquely identifies each row in a table?
+A. Foreign Key
+B. Primary Key
+C. Alternate Key
+D. Super Key -- B
+
+2. Which statement about a primary key is correct?
+A. A table can have multiple primary key constraints
+B. Primary key values can be duplicated
+C. Primary key uniquely identifies rows
+D. Primary key is always a foreign key -- C
+
+3. Which key establishes a relationship between two tables?
+A. Candidate Key
+B. Foreign Key
+C. Alternate Key
+D. Composite Key -- B
+
+4. Which is an example of a composite key?
+A. customer_id
+B. email
+C. (order_id, product_id)
+D. phone  -- C (Two columns together uniquely identify the row)
+
+5. A candidate key that is not selected as the primary key is called:
+A. Foreign Key
+B. Alternate Key
+C. Super Key
+D. Composite Key -- B
+
+6. Which JOIN returns only matching records from both tables?
+A. LEFT JOIN
+B. RIGHT JOIN
+C. INNER JOIN
+D. CROSS JOIN -- C
+
+7. Which JOIN returns all rows from the left table and matching rows from the right table?
+A. INNER JOIN
+B. LEFT JOIN
+C. RIGHT JOIN
+D. CROSS JOIN -- D(Every row combines with every other row)
+
+8. What does a CROSS JOIN produce?
+A. Only matching rows
+B. Only unmatched rows
+C. Cartesian product
+D. Duplicate elimination
+
+9. Which JOIN is useful when you want:
+"All customers, including customers who have never placed an order"
+A. INNER JOIN
+B. LEFT JOIN
+C. CROSS JOIN
+D. SELF JOIN -- B (Keeps all customers, even without orders)
+
+10. MySQL does not provide a direct:
+A. INNER JOIN
+B. LEFT JOIN
+C. RIGHT JOIN
+D. FULL OUTER JOIN -- D (MySQL has no direct FULL OUTER JOIN)
+
+SECTION B — TRUE / FALSE
+11. A table can have only one primary key constraint -- True
+12. A foreign key must always be unique -- False
+13. A composite key consists of two or more columns  -- True
+14. INNER JOIN can return unmatched rows from the left table -- False
+15. LEFT JOIN can return NULL values for columns from the right table when no match exists -- True
+
+SECTION C — IDENTIFY THE KEY
+Consider: customers Table
+customer_id -> Primary Key
+If it uniquely identifies every customer and is selected as PK
+email -> Candidate Key
+phone -> Alternate Key
+
+16. If customer_id uniquely identifies every customer, what type of key is it?
+If it uniquely identifies every customer and is selected as PK
+
+17. If email is also guaranteed to be unique and can identify a customer, what kind of key is email before choosing the primary key?
+18. If customer_id is selected as the Primary Key and email remains unique, what would email be called?
+
+19. Consider: order_items
+order_id
+product_id
+quantity
+If (order_id, product_id) uniquely identifies each row, what type of key is this?
+Two columns together uniquely identify the record
+
+20. If orders.customer_id references customers.customer_id, what type of key is orders.customer_id? -> Foreign Key
+It references customers.customer_id
+
+SECTION D — MATCH THE FOLLOWING
+ Column A           Column B                            
+ 21. Primary Key   B | A. All combinations of rows         
+ 22. Foreign Key   C | B. Uniquely identifies a row        
+ 23. Candidate Key D | C. References another table         
+ 24. Alternate Key E | D. Possible key candidate           
+ 25. CROSS JOIN    A | E. Candidate key not selected as PK 
+
+SECTION E — JOIN QUERY PRACTICE
+Use these tables:
+customers Table
+customer_id
+customer_name
+city
+
+orders Table
+order_id
+customer_id
+store_id
+total_amount
+status
+
+stores Table
+store_id
+store_name
+city
+
+26. INNER JOIN
+Display: customer_name 
+         order_id
+         total_amount for customers who have placed orders - Write the query
+SELECT
+    c.customer_name,
+    o.order_id,
+    o.total_amount
+FROM customers c
+INNER JOIN orders o
+    ON c.customer_id = o.customer_id; -- Why? We only need customers who have matching orders
+
+27. LEFT JOIN
+Display all customers, including customers who have never placed an order
+Return:
+customer_name
+order_id
+total_amount
+
+SELECT
+    c.customer_name,
+    o.order_id,
+    o.total_amount
+FROM customers c
+LEFT JOIN orders o
+    ON c.customer_id = o.customer_id; -- Why? We need all customers, including those without orders
+
+28. Multi-table JOIN
+Display:
+customer_name
+order_id
+store_name
+total_amount -- Use the required JOINs
+
+SELECT
+    c.customer_name,
+    o.order_id,
+    s.store_name,
+    o.total_amount
+FROM customers c
+INNER JOIN orders o
+    ON c.customer_id = o.customer_id
+INNER JOIN stores s
+    ON o.store_id = s.store_id;
+
+29. Filter After JOIN
+Display customers and their orders where:
+total_amount > 1000
+
+SELECT
+    c.customer_name,
+    o.order_id,
+    o.total_amount
+FROM customers c
+INNER JOIN orders o
+    ON c.customer_id = o.customer_id
+WHERE o.total_amount > 1000;
+
+30. Unmatched Records
+Find customers who have never placed an order
+Return: customer_id
+        customer_name
+
+SELECT
+    c.customer_id,
+    c.customer_name
+FROM customers c
+LEFT JOIN orders o
+    ON c.customer_id = o.customer_id
+WHERE o.customer_id IS NULL;
+
+SECTION F — LOGICAL JOIN QUESTIONS
+31. What is the difference between:
+INNER JOIN
+and: LEFT JOIN
+Give a real-world example
+
+32. Suppose:
+customers = 5 rows
+orders = 10 rows
+Some customers have no orders
+
+If you use:
+FROM customers c
+INNER JOIN orders o
+    ON c.customer_id = o.customer_id;
+Will the result contain all 5 customers? - Explain
+
+33. A developer writes:
+SELECT *
+FROM customers c
+JOIN orders o;
+
+What is wrong with this query?
+What type of result could occur if the database accepts the equivalent Cartesian operation?
+
+34. You need: "Show every store, even stores that currently have no orders"
+Which table should be on the left side of the JOIN?
+Which JOIN would you use?
+Explain why
+
+35. You need: "Show only customers who have placed at least one order"
+Would you use:
+INNER JOIN
+or LEFT JOIN
+Why?
+
+SECTION G — REAL-TIME SCENARIO TEST
+36. Zepto Customer + Order
+Requirement: Operations wants customer name, order ID, status and amount for every existing order
+
+Tables:
+customers(customer_id, customer_name)
+orders(order_id, customer_id, status, total_amount)
+Write the query and explain why you selected that JOIN
+
+37. Customers With No Orders
+Requirement: Marketing wants customers who registered but have never ordered anything
+Write the query
+Also explain: Why wouldn't INNER JOIN work?
+
+38. Store Performance
+Tables: stores(store_id, store_name)
+orders(order_id, store_id, total_amount, status)
+
+Requirement: Management wants all stores, including stores with zero orders, along with their orders
+Write the query
+
+39. Three-Level Relationship
+customers Table
+customer_id
+customer_name
+
+orders Table
+order_id
+customer_id
+
+order_items Table
+order_id
+product_id
+quantity
+
+products Table
+product_id
+product_name
+price
+
+Requirement: "Show customer name, order ID, product name and quantity "
+Write the complete query
+
+SECTION H — FINAL ARCHITECTURE CHALLENGE
+40. Design + JOIN Thinking
+You are building a Zepto-style database:
+customers
+stores
+products
+inventory
+orders
+order_items
+
+A. What should be the Primary Key of each table?
+B. Where would you use Foreign Keys?
+C. Where would you use Composite Keys?
+D. Why would order_items typically need (order_id, product_id) as a composite key?
+E. Write a query to show:
+customer_name
+order_id
+store_name
+product_name
+quantity
+F. Write a query to find customers who have never ordered
+G. Write a query to find stores with no orders
+H. Which JOIN would you choose for each of F and G?
+I. Explain the difference between:
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+CROSS JOIN
+SELF JOIN in one sentence each
+
+
+-- BONUS — ORAL INTERVIEW ROUNDloo aduguthaaru
+1. What is the difference between a candidate key and a primary key?
+2. Can a foreign key have duplicate values? Why?
+3. Can a foreign key contain NULL?
+4. Why do we use a composite key in order_items?
+5. What happens to unmatched records in INNER JOIN?
+6. What happens to unmatched right-table columns in LEFT JOIN?
+7. How can you find records in Table A that don't exist in Table B?
+8. Why can a JOIN produce more rows than either individual table?
+9. What happens if the JOIN condition is missing or incorrect?
+10. When would you use a SELF JOIN?
+
+-- Ilaa explain cheydaaniki try cheyandii
+"I need every record from this table even when no matching record exists in the other table, so I keep that table on the left and use LEFT JOIN
