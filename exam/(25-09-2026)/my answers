@@ -1,0 +1,67 @@
+select now();
+ -- 2026-09-25 10:28:55
+ -- exam
+/*  -- 1.b-primary key
+2.c-
+3-b-foriegn key
+4-c
+5-b
+6-c 
+7-b 
+8-c 
+9- b 
+10-d 
+*/
+-- section b 
+/* 11-true 
+12- false
+13-true 
+14-false
+15- true
+*/
+-- section c 
+/*
+16- primary key 
+17- candidate key
+18-composite/alternate key
+19- composite key 
+20- foreign key referencing primary key 
+*/
+-- section d 
+/* 
+21-b 
+22-c 
+23-d 
+24-e 
+25-a
+*/
+-- section e 
+/* 
+26.select c.c_name,o.o_id,o.total_amount from customers as c
+join orders as o 
+on c.c_id=o.c_id;
+27.select c.c_name,o.o_id,o.total_amount from customers as c
+left join orders as o 
+on c.c_id=o.c_id;
+28.select c.c_name,o.o_id,s.s_name,o.total_amount from customers as
+join orders as o 
+on c.c_id=o.c_id 
+join stores as s 
+on s.s_id=o.s_id;
+29.select c.c_name,o.o_id,o.total_amountc
+from customers as c
+join orders as o
+on c.c_id=o.c_id 
+where total_amount>1000;
+30.select c.c_id,c.c_name 
+from customers as c 
+left join orders as o 
+on c.c_id=o.c_id              -- only left join
+union
+select c.c_id,c.c_name 
+from customers as c 
+right join orders as o 
+on c.c_id=o.c_id;
+*/
+
+
