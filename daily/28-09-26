@@ -1,0 +1,27 @@
+Example for TCL:
+START TRANSACTION;
+
+UPDATE accounts
+SET balance = balance - 5000
+WHERE account_id = 101;
+
+SAVEPOINT after_debit;
+
+UPDATE accounts
+SET balance = balance + 5000
+WHERE account_id = 102;
+
+UPDATE accounts
+SET balance = balance - 500
+WHERE account_id = 101;
+
+ROLLBACK TO SAVEPOINT after_debit;
+
+RELEASE SAVEPOINT after_debit;
+
+INSERT INTO transactions
+(account_id_from, account_id_to, amount)
+VALUES
+(101, 102, 5000);
+
+COMMIT;
