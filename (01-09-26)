@@ -10,3 +10,6 @@ select  course,count(id) from alg_crew group by course;-- gives count based on c
 select  course,pincode,count(id) from alg_crew group by course,pincode;
 -- columns other than aggregate function  mentioned in select should write in group by clause 
 select sum(id) , course,pincode,count(id) from alg_crew group by course,pincode; -- multiple columns ,multiple aggregates 
+
+
+
