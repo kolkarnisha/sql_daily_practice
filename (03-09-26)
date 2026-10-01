@@ -131,7 +131,10 @@ INSERT INTO orders
  alter table orders rename to flipkart_orders;
   select * from flipkart_orders;
 
-			
+
+
+
+
 
 
 
