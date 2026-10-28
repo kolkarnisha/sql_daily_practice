@@ -1,6 +1,6 @@
 CREATE DATABASE marathahalli_rental;
 USE marathahalli_rental;
--- *Step-2: Create the master table*
+-- *Step-2: Create the master table* 
 
 CREATE TABLE pg_properties (
     PG_id INT PRIMARY KEY AUTO_INCREMENT, -- Because it uniquely identifies every PG
