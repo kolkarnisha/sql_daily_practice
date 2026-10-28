@@ -3,7 +3,7 @@ use algonex;
 show tables;
 select * from alg_crew;
 select id from alg_crew;
-select id from alg_crew group by id;
+select id from alg_crew group by id; 
 select count(id) from alg_crew group by id;
 -- select  course,count(id) from alg_crew ;  it wont work
 select  course,count(id) from alg_crew group by course;-- gives count based on course category 
