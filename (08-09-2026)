@@ -4,7 +4,7 @@ insert into pg_properties(PG_name, Estb_year,
     Address_Area, Pincode, Category, City, State, Owner_Name,
     Parking, Gym, Lift, Contact, Rent, Sharing, Deposit,
     Food_Specials, Facilities, Feedback, Rules, Rating,
-    SecurityCCTV, Self_Cooking) value ('happypg', 2020, 'marathalli,6th cross', '560067', 'Ladies', 'Bangalore', 'Karnataka',
+    SecurityCCTV, Self_Cooking) value ('happypg', 2020, 'marathalli,6th cross', '560067', 'Ladies', 'Bangalore', 'Karnataka', 
  'Sneha Kapoor', 'No', 'Yes', 'Yes', '9000000011', 8000, 'Triple', 4000,
  'Breakfast + Lunch + Dinner', 'WiFi, CCTV, Lift',
  'Safe and comfortable stay', 'Visitors allowed till 8 PM', 4.5, 'Yes', 'Yes');
