@@ -1,7 +1,7 @@
 CREATE DATABASE marathahalli_rental;
 USE marathahalli_rental;
 CREATE TABLE pg_properties (
-    PG_id INT PRIMARY KEY AUTO_INCREMENT, -- Because it uniquely identifies every PG
+    PG_id INT PRIMARY KEY AUTO_INCREMENT, -- Because it uniquely identifies every PG 
     PG_name VARCHAR(150) NOT NULL,  
     Estb_year YEAR, -- Bcz We don't need 2018-04-21 10:30:00 
  
