@@ -7,7 +7,7 @@ CREATE TABLE orders3 (
     customer_name VARCHAR(100) NOT NULL, -- Customer name
     city VARCHAR(50),                    -- Customer city
     product_name VARCHAR(100),           -- Product purchased
-    category VARCHAR(50),                -- Product category
+    category VARCHAR(50),                -- Product category 
     quantity INT UNSIGNED NOT NULL,      -- Number of units
     unit_price DECIMAL(10,2) NOT NULL,  -- Price per unit
     sales_rep VARCHAR(100),              -- Employee handling sale
