@@ -7,7 +7,7 @@ create table customers(
        customer_id int primary key auto_increment,
        customer_name varchar(50) not null, 
        city varchar(60));
-insert into customers(customer_id,customer_name,city) values
+insert into customers(customer_id,customer_name,city) values 
         (1,"nisha","bkk"),
         (2,"zareentaj","mpl"),
         (3,"nishazareentaj","kadapa"),
