@@ -7,7 +7,7 @@ show tables;
 select * from pg_properties;
 with cheapestpg as (
          select rent,Pg_name,category,row_number()
-         over (partition by category order by rent ) 
+         over (partition by category order by rent )  
            as rn from pg_properties )
          select * from cheapestpg  where rn<=2;
 /* 5500.00	Budget Stay PG	Gents	1
