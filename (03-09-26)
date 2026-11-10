@@ -10,7 +10,7 @@ CREATE TABLE orders3 (
     category VARCHAR(50),                -- Product category 
     quantity INT UNSIGNED NOT NULL,      -- Number of units
     unit_price DECIMAL(10,2) NOT NULL,  -- Price per unit
-    sales_rep VARCHAR(100),              -- Employee handling sale
+    sales_rep VARCHAR(100),              -- Employee handling sale 
     payment_method VARCHAR(30)         -- Payment type
 );
 INSERT INTO orders3
