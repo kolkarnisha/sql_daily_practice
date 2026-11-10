@@ -8,7 +8,7 @@ create table customers(
        customer_name varchar(50) not null, 
        city varchar(60));
 insert into customers(customer_id,customer_name,city) values 
-        (1,"nisha","bkk"),
+        (1,"nisha","bkk"), 
         (2,"zareentaj","mpl"),
         (3,"nishazareentaj","kadapa"),
         (4,"nishataj","bkk"),
