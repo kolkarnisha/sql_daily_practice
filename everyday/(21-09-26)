@@ -3,7 +3,7 @@ select sum(id) , course,pincode,count(id) from alg_crew group by course,pincodE/
 delimiter //
 create procedure get_all()
  BEGIN
-SELECT  * from algonex_crew;
+SELECT  * from algonex_crew; 
 end//
 delimiter ;
 call get_all;
