@@ -18,7 +18,7 @@ insert into alg_crew(id,name,course,location,email,mobilenum,pincode,feedback)
                    ,9652937502,"517370","industrial training"),
 			(3,"sunny","medicalcoding","pulivendula","sunny@gmail.com"
                    ,9999999999,"517325","very practical training"),
-			(4,"jaganmohanreddy","datanalysis","bangaore","jaganisha@gmail.com"
+			(4,"jaganmohanreddy","datanalysis","bangaore","jaganisha@gmail.com" 
                    ,8688581097,"516370","very practical training");
                    
                    
