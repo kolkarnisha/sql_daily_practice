@@ -12,7 +12,7 @@ select customer_name,quantity,
     where quantity>2;
 select customer_name,quantity,
    DENSE_RANK() over(order by quantity ) as row_num from flipkart_orders;
-
+ 
  
 
 
