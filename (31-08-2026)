@@ -12,7 +12,7 @@ select current_user();
 select upper(full_name) from algonex_users;
 -- write a query to find the length of string mysql
 select length("mysql");
--- write a query to remove leading and trailling spacesfrom "   hello mysql   '
+-- write a query to remove leading and trailling spacesfrom "   hello mysql   ' 
 select trim("   mysql   ");
 -- write a query to extract the first 5 chaeacters from " database"
 select substring("database",1,5);
