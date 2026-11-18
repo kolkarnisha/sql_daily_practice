@@ -4,7 +4,7 @@ select now();
 /*  -- 1.b-primary key
 2.c-
 3-b-foriegn key
-4-c
+4-c 
 5-b
 6-c 
 7-b 
